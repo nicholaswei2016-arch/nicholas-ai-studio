@@ -4,17 +4,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Nicholas AI Studio</title>
-  <meta name="description" content="Nicholas AI Studio - Personal AI insights, AI Agent experiments, automation notes, and product thinking." />
+  <meta name="description" content="Nicholas AI Studio - Exploring AI Agents, OpenClaw, smart home intelligence, automation, and the future of AI." />
 
   <style>
     :root {
-      --black: #000000;
-      --white: #ffffff;
-      --paper: #f5f5f7;
-      --text: #1d1d1f;
-      --muted: #6e6e73;
-      --blue: #0071e3;
-      --line: rgba(0, 0, 0, 0.08);
+      --black: #000;
+      --deep: #050505;
+      --panel: #111113;
+      --panel-2: #1d1d1f;
+      --text: #f5f5f7;
+      --muted: #a1a1a6;
+      --muted-2: #86868b;
+      --blue: #2997ff;
+      --line: rgba(255, 255, 255, 0.14);
+      --card: #161617;
+      --white: #fff;
     }
 
     * {
@@ -23,6 +27,7 @@
 
     html {
       scroll-behavior: smooth;
+      background: #000;
     }
 
     body {
@@ -35,7 +40,7 @@
         "Helvetica Neue",
         Arial,
         sans-serif;
-      background: var(--white);
+      background: #000;
       color: var(--text);
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
@@ -46,17 +51,59 @@
       text-decoration: none;
     }
 
-    .topbar {
+    .global-nav {
       position: sticky;
       top: 0;
-      z-index: 20;
-      height: 52px;
+      z-index: 50;
+      height: 44px;
+      background: rgba(22, 22, 23, 0.82);
       backdrop-filter: saturate(180%) blur(20px);
-      background: rgba(255, 255, 255, 0.78);
-      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
     }
 
-    .topbar-inner {
+    .global-nav-inner {
+      max-width: 1024px;
+      height: 44px;
+      margin: 0 auto;
+      padding: 0 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand {
+      font-size: 13px;
+      line-height: 1;
+      font-weight: 600;
+      color: #f5f5f7;
+      letter-spacing: -0.01em;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      color: #d2d2d7;
+      font-size: 12px;
+      line-height: 1;
+      font-weight: 400;
+    }
+
+    .nav-links a:hover {
+      color: #fff;
+    }
+
+    .local-nav {
+      position: sticky;
+      top: 44px;
+      z-index: 40;
+      height: 52px;
+      background: rgba(0,0,0,0.72);
+      backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .local-nav-inner {
       max-width: 1024px;
       height: 52px;
       margin: 0 auto;
@@ -66,66 +113,75 @@
       justify-content: space-between;
     }
 
-    .brand {
-      font-size: 14px;
-      font-weight: 700;
-      letter-spacing: -0.01em;
+    .local-title {
+      font-size: 21px;
+      line-height: 1.15;
+      font-weight: 600;
+      letter-spacing: 0;
+      color: #f5f5f7;
     }
 
-    .nav {
+    .local-links {
       display: flex;
-      gap: 26px;
+      align-items: center;
+      gap: 22px;
       font-size: 12px;
-      color: #424245;
+      color: #d2d2d7;
     }
 
-    .nav a:hover {
+    .local-links a:hover {
       color: var(--blue);
     }
 
     .hero {
-      background: var(--paper);
-      text-align: center;
+      position: relative;
       overflow: hidden;
-      padding: 96px 24px 0;
+      min-height: calc(100vh - 96px);
+      background:
+        radial-gradient(circle at 50% 18%, rgba(41,151,255,0.24), transparent 28rem),
+        radial-gradient(circle at 62% 35%, rgba(126,87,255,0.16), transparent 34rem),
+        #000;
+      text-align: center;
+      padding: 82px 24px 0;
     }
 
-    .eyebrow {
-      font-size: 22px;
-      line-height: 1.2;
+    .hero-kicker {
+      margin: 0 auto 16px;
+      color: #a1a1a6;
+      font-size: clamp(22px, 2.3vw, 30px);
+      line-height: 1.16;
       font-weight: 600;
       letter-spacing: -0.02em;
-      color: var(--muted);
-      margin-bottom: 16px;
     }
 
     h1 {
-      max-width: 980px;
+      max-width: 1120px;
       margin: 0 auto;
-      font-size: clamp(58px, 9vw, 118px);
-      line-height: 0.94;
-      letter-spacing: -0.075em;
+      color: #f5f5f7;
+      font-size: clamp(64px, 10vw, 128px);
+      line-height: 0.95;
+      letter-spacing: -0.045em;
       font-weight: 700;
     }
 
     .hero-subtitle {
-      max-width: 760px;
-      margin: 30px auto 34px;
-      font-size: clamp(22px, 3vw, 32px);
-      line-height: 1.18;
-      letter-spacing: -0.04em;
-      color: #2f2f31;
+      max-width: 850px;
+      margin: 32px auto 34px;
+      color: #d2d2d7;
+      font-size: clamp(24px, 3.2vw, 36px);
+      line-height: 1.16;
+      letter-spacing: -0.025em;
       font-weight: 500;
     }
 
     .hero-links {
       display: flex;
       justify-content: center;
-      gap: 26px;
-      margin-bottom: 54px;
-      font-size: 21px;
-      line-height: 1.3;
+      gap: 28px;
+      margin-bottom: 56px;
       color: var(--blue);
+      font-size: 21px;
+      line-height: 1.38;
       font-weight: 400;
     }
 
@@ -134,41 +190,58 @@
     }
 
     .hero-visual {
-      max-width: 1180px;
+      max-width: 1260px;
       margin: 0 auto;
-      padding: 0 20px 74px;
+      padding: 0 12px 80px;
     }
 
-    .device-frame {
+    .visual-stage {
       position: relative;
       overflow: hidden;
-      border-radius: 42px;
-      background: #000;
+      border-radius: 44px;
+      min-height: 600px;
+      background: #111;
       box-shadow:
-        0 42px 100px rgba(0, 0, 0, 0.18),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+        0 44px 120px rgba(0,0,0,0.6),
+        inset 0 0 0 1px rgba(255,255,255,0.08);
     }
 
-    .device-frame img {
+    .visual-stage img {
       width: 100%;
-      height: min(62vw, 640px);
-      min-height: 360px;
+      height: min(62vw, 720px);
+      min-height: 600px;
       object-fit: cover;
       display: block;
-      opacity: 0.92;
+      opacity: 0.86;
     }
 
-    .image-overlay {
+    .visual-stage::after {
+      content: "";
       position: absolute;
       inset: 0;
       background:
-        linear-gradient(180deg, rgba(0,0,0,0.10), rgba(0,0,0,0.45)),
-        radial-gradient(circle at 50% 15%, rgba(255,255,255,0.22), transparent 24rem);
+        linear-gradient(180deg, rgba(0,0,0,0.05), rgba(0,0,0,0.55)),
+        radial-gradient(circle at 50% 20%, rgba(255,255,255,0.2), transparent 22rem);
       pointer-events: none;
     }
 
+    .visual-caption {
+      position: absolute;
+      left: 50%;
+      bottom: 44px;
+      transform: translateX(-50%);
+      z-index: 2;
+      width: min(860px, calc(100% - 56px));
+      color: #f5f5f7;
+      font-size: clamp(26px, 4vw, 48px);
+      line-height: 1.08;
+      letter-spacing: -0.035em;
+      font-weight: 650;
+    }
+
     .section {
-      padding: 112px 24px;
+      background: #000;
+      padding: 118px 24px;
     }
 
     .section-inner {
@@ -176,202 +249,366 @@
       margin: 0 auto;
     }
 
-    .section-kicker {
-      color: var(--muted);
-      font-size: 21px;
-      line-height: 1.2;
+    .section-eyebrow {
+      color: #86868b;
+      font-size: 24px;
+      line-height: 1.16;
+      letter-spacing: -0.02em;
       font-weight: 600;
-      letter-spacing: -0.03em;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
     }
 
     h2 {
-      max-width: 860px;
-      margin: 0;
-      font-size: clamp(44px, 6vw, 80px);
-      line-height: 0.98;
-      letter-spacing: -0.065em;
-      font-weight: 700;
-    }
-
-    .section-description {
-      max-width: 760px;
-      margin-top: 26px;
-      color: var(--muted);
-      font-size: 24px;
-      line-height: 1.25;
-      letter-spacing: -0.04em;
-      font-weight: 500;
-    }
-
-    .cards {
-      max-width: 1180px;
-      margin: 56px auto 0;
-      padding: 0 24px;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 22px;
-    }
-
-    .card {
-      min-height: 520px;
-      background: var(--paper);
-      border-radius: 34px;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .card-copy {
-      padding: 34px 32px 22px;
-    }
-
-    .card-label {
-      color: var(--muted);
-      font-size: 15px;
-      font-weight: 600;
-      margin-bottom: 8px;
-    }
-
-    .card h3 {
-      margin: 0;
-      color: var(--text);
-      font-size: 31px;
-      line-height: 1.05;
-      letter-spacing: -0.055em;
-      font-weight: 700;
-    }
-
-    .card p {
-      margin: 16px 0 0;
-      color: var(--muted);
-      font-size: 18px;
-      line-height: 1.35;
-      letter-spacing: -0.03em;
-      font-weight: 500;
-    }
-
-    .card img {
-      width: 100%;
-      height: 250px;
-      object-fit: cover;
-      margin-top: auto;
-      display: block;
-    }
-
-    .black-section {
-      background: #000;
-      color: #f5f5f7;
-      text-align: center;
-      padding: 122px 24px;
-      overflow: hidden;
-    }
-
-    .black-section h2 {
-      margin: 0 auto;
       max-width: 940px;
+      margin: 0;
       color: #f5f5f7;
+      font-size: clamp(48px, 7vw, 86px);
+      line-height: 0.98;
+      letter-spacing: -0.04em;
+      font-weight: 700;
     }
 
-    .black-section .section-description {
-      margin-left: auto;
-      margin-right: auto;
+    .section-copy {
+      max-width: 820px;
+      margin-top: 28px;
       color: #a1a1a6;
+      font-size: clamp(22px, 2.7vw, 30px);
+      line-height: 1.24;
+      letter-spacing: -0.025em;
+      font-weight: 500;
     }
 
-    .lab-grid {
-      max-width: 1080px;
-      margin: 62px auto 0;
+    .highlight-wrap {
+      background: #000;
+      padding: 0 24px 120px;
+    }
+
+    .highlight-header {
+      max-width: 1180px;
+      margin: 0 auto 30px;
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .highlight-header h2 {
+      font-size: clamp(42px, 5.5vw, 72px);
+    }
+
+    .highlight-header a {
+      color: var(--blue);
+      font-size: 17px;
+      white-space: nowrap;
+    }
+
+    .highlights {
+      max-width: 1180px;
+      margin: 0 auto;
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: 1.25fr 0.9fr 0.9fr;
       gap: 18px;
-      text-align: left;
     }
 
-    .lab-item {
-      min-height: 260px;
+    .highlight-card {
+      position: relative;
+      overflow: hidden;
       border-radius: 32px;
+      min-height: 520px;
       background: #161617;
-      padding: 32px;
       border: 1px solid rgba(255,255,255,0.08);
     }
 
-    .lab-item span {
-      display: block;
-      color: #86868b;
-      font-size: 15px;
-      margin-bottom: 10px;
-      font-weight: 600;
+    .highlight-card.large {
+      min-height: 640px;
     }
 
-    .lab-item strong {
-      display: block;
-      font-size: 32px;
-      line-height: 1.05;
-      letter-spacing: -0.055em;
+    .highlight-card img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.66;
+    }
+
+    .highlight-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.15), rgba(0,0,0,0.74));
+    }
+
+    .highlight-copy {
+      position: absolute;
+      left: 28px;
+      right: 28px;
+      bottom: 28px;
+      z-index: 2;
+    }
+
+    .highlight-label {
+      color: #a1a1a6;
+      font-size: 15px;
+      line-height: 1.2;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .highlight-copy h3 {
+      margin: 0;
+      color: #f5f5f7;
+      font-size: clamp(28px, 3.6vw, 48px);
+      line-height: 1.02;
+      letter-spacing: -0.035em;
       font-weight: 700;
     }
 
-    .lab-item p {
-      margin: 18px 0 0;
-      color: #a1a1a6;
+    .highlight-copy p {
+      margin: 16px 0 0;
+      color: #d2d2d7;
       font-size: 18px;
-      line-height: 1.45;
-      letter-spacing: -0.03em;
+      line-height: 1.34;
+      letter-spacing: -0.02em;
       font-weight: 500;
     }
 
-    .feature-split {
-      background: var(--paper);
-      padding: 110px 24px;
+    .deep-section {
+      background: #0b0b0c;
+      padding: 120px 24px;
     }
 
-    .split-inner {
-      max-width: 1120px;
+    .two-col {
+      max-width: 1180px;
       margin: 0 auto;
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 0.95fr 1.05fr;
       gap: 22px;
       align-items: stretch;
     }
 
-    .split-copy {
-      background: #fff;
+    .copy-panel {
       border-radius: 34px;
+      background: #161617;
       padding: 54px 44px;
+      border: 1px solid rgba(255,255,255,0.08);
     }
 
-    .split-copy h2 {
-      font-size: clamp(42px, 5vw, 68px);
+    .copy-panel h2 {
+      font-size: clamp(44px, 5.5vw, 76px);
     }
 
-    .split-copy p {
-      margin-top: 24px;
-      color: var(--muted);
+    .copy-panel p {
+      margin: 26px 0 0;
+      color: #a1a1a6;
       font-size: 22px;
-      line-height: 1.32;
-      letter-spacing: -0.04em;
+      line-height: 1.35;
+      letter-spacing: -0.02em;
       font-weight: 500;
     }
 
-    .split-image {
+    .image-panel {
       overflow: hidden;
       border-radius: 34px;
       background: #000;
-      min-height: 520px;
+      min-height: 620px;
     }
 
-    .split-image img {
+    .image-panel img {
       width: 100%;
       height: 100%;
-      min-height: 520px;
+      min-height: 620px;
+      display: block;
+      object-fit: cover;
+      opacity: 0.9;
+    }
+
+    .tools-section {
+      background: #000;
+      padding: 118px 24px;
+    }
+
+    .tools-grid {
+      max-width: 1180px;
+      margin: 54px auto 0;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .tool-card {
+      min-height: 270px;
+      border-radius: 30px;
+      background: #161617;
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 28px;
+    }
+
+    .tool-card .num {
+      display: block;
+      color: #86868b;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 34px;
+    }
+
+    .tool-card strong {
+      display: block;
+      color: #f5f5f7;
+      font-size: 29px;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      font-weight: 700;
+    }
+
+    .tool-card p {
+      margin: 16px 0 0;
+      color: #a1a1a6;
+      font-size: 17px;
+      line-height: 1.4;
+      letter-spacing: -0.015em;
+      font-weight: 500;
+    }
+
+    .home-section {
+      background: #f5f5f7;
+      color: #1d1d1f;
+      padding: 120px 24px;
+    }
+
+    .home-section h2 {
+      color: #1d1d1f;
+    }
+
+    .home-section .section-eyebrow {
+      color: #6e6e73;
+    }
+
+    .home-section .section-copy {
+      color: #6e6e73;
+    }
+
+    .home-grid {
+      max-width: 1180px;
+      margin: 60px auto 0;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .home-card {
+      overflow: hidden;
+      min-height: 560px;
+      border-radius: 34px;
+      background: #fff;
+    }
+
+    .home-card .text {
+      padding: 34px 32px;
+    }
+
+    .home-card span {
+      display: block;
+      color: #6e6e73;
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .home-card h3 {
+      margin: 0;
+      color: #1d1d1f;
+      font-size: 34px;
+      line-height: 1.03;
+      letter-spacing: -0.035em;
+      font-weight: 700;
+    }
+
+    .home-card p {
+      margin: 18px 0 0;
+      color: #6e6e73;
+      font-size: 18px;
+      line-height: 1.38;
+      letter-spacing: -0.018em;
+      font-weight: 500;
+    }
+
+    .home-card img {
+      width: 100%;
+      height: 250px;
       object-fit: cover;
       display: block;
+      margin-top: auto;
+    }
+
+    .trend-section {
+      background: #000;
+      padding: 120px 24px;
+    }
+
+    .trend-list {
+      max-width: 1024px;
+      margin: 64px auto 0;
+      border-top: 1px solid rgba(255,255,255,0.16);
+    }
+
+    .trend-row {
+      display: grid;
+      grid-template-columns: 0.45fr 1fr;
+      gap: 40px;
+      padding: 34px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.16);
+    }
+
+    .trend-row strong {
+      color: #f5f5f7;
+      font-size: 28px;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      font-weight: 700;
+    }
+
+    .trend-row p {
+      margin: 0;
+      color: #a1a1a6;
+      font-size: 22px;
+      line-height: 1.34;
+      letter-spacing: -0.02em;
+      font-weight: 500;
+    }
+
+    .closing {
+      background:
+        linear-gradient(180deg, rgba(0,0,0,0.15), #000),
+        url("https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=2200&q=85") center/cover;
+      min-height: 760px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 24px;
+    }
+
+    .closing h2 {
+      max-width: 980px;
+      margin: 0 auto;
+      font-size: clamp(56px, 8vw, 108px);
+      letter-spacing: -0.04em;
+    }
+
+    .closing p {
+      max-width: 760px;
+      margin: 30px auto 0;
+      color: #d2d2d7;
+      font-size: clamp(22px, 2.8vw, 32px);
+      line-height: 1.22;
+      letter-spacing: -0.02em;
+      font-weight: 500;
     }
 
     .footer {
-      background: var(--paper);
-      color: #6e6e73;
+      background: #000;
+      color: #86868b;
       font-size: 12px;
       line-height: 1.5;
       padding: 30px 24px;
@@ -380,7 +617,7 @@
     .footer-inner {
       max-width: 1024px;
       margin: 0 auto;
-      border-top: 1px solid var(--line);
+      border-top: 1px solid rgba(255,255,255,0.14);
       padding-top: 18px;
       display: flex;
       justify-content: space-between;
@@ -388,208 +625,354 @@
       flex-wrap: wrap;
     }
 
-    @media (max-width: 900px) {
-      .nav {
+    @media (max-width: 980px) {
+      .nav-links {
         gap: 16px;
       }
 
+      .local-links {
+        display: none;
+      }
+
       .hero {
-        padding-top: 72px;
+        padding-top: 66px;
       }
 
       h1 {
-        font-size: 58px;
+        font-size: 64px;
+        letter-spacing: -0.03em;
       }
 
       .hero-subtitle {
         font-size: 24px;
       }
 
-      .hero-links {
-        font-size: 19px;
+      .visual-stage,
+      .visual-stage img {
+        min-height: 420px;
       }
 
-      .device-frame {
-        border-radius: 28px;
-      }
-
-      .cards,
-      .lab-grid,
-      .split-inner {
+      .highlights,
+      .two-col,
+      .tools-grid,
+      .home-grid,
+      .trend-row {
         grid-template-columns: 1fr;
       }
 
-      .card {
-        min-height: auto;
+      .highlight-card,
+      .highlight-card.large {
+        min-height: 520px;
+      }
+
+      .tools-grid {
+        gap: 14px;
       }
 
       .section,
-      .black-section,
-      .feature-split {
-        padding-top: 82px;
-        padding-bottom: 82px;
+      .deep-section,
+      .tools-section,
+      .home-section,
+      .trend-section {
+        padding-top: 88px;
+        padding-bottom: 88px;
+      }
+
+      .image-panel,
+      .image-panel img {
+        min-height: 420px;
       }
     }
   </style>
 </head>
 
 <body>
-  <header class="topbar">
-    <div class="topbar-inner">
-      <div class="brand">Nicholas AI Studio</div>
-      <nav class="nav">
-        <a href="#notes">Notes</a>
-        <a href="#lab">Lab</a>
-        <a href="#workflow">Workflow</a>
-        <a href="#about">About</a>
+  <header class="global-nav">
+    <div class="global-nav-inner">
+      <a class="brand" href="#">Nicholas AI Studio</a>
+      <nav class="nav-links">
+        <a href="#highlights">Highlights</a>
+        <a href="#tools">Tools</a>
+        <a href="#home">Smart Home</a>
+        <a href="#trends">Trends</a>
+      </nav>
+    </div>
+  </header>
+
+  <header class="local-nav">
+    <div class="local-nav-inner">
+      <div class="local-title">AI Agent</div>
+      <nav class="local-links">
+        <a href="#overview">Overview</a>
+        <a href="#highlights">Highlights</a>
+        <a href="#tools">Tools</a>
+        <a href="#home">Applications</a>
       </nav>
     </div>
   </header>
 
   <main>
-    <section class="hero">
-      <div class="eyebrow">AI Agent · Product Thinking · Intelligent Automation</div>
-      <h1>Think deeply.<br />Build intelligently.</h1>
+    <section class="hero" id="overview">
+      <div class="hero-kicker">Nicholas AI Studio</div>
+      <h1>The next interface is an agent.</h1>
       <p class="hero-subtitle">
-        A personal studio for exploring AI agents, large language models,
-        automation systems, and the future of human-computer interaction.
+        Exploring AI agents, OpenClaw, smart home intelligence, automation systems,
+        and the future of human-computer interaction.
       </p>
       <div class="hero-links">
-        <a href="#notes">Explore notes ›</a>
-        <a href="#lab">View experiments ›</a>
+        <a href="#highlights">Get the highlights ›</a>
+        <a href="#home">Smart home vision ›</a>
       </div>
 
       <div class="hero-visual">
-        <div class="device-frame">
-          <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=2200&q=85" alt="AI neural visualization" />
-          <div class="image-overlay"></div>
+        <div class="visual-stage">
+          <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=2200&q=85" alt="AI neural network visualization" />
+          <div class="visual-caption">
+            From conversation to action. From apps to agents.
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="section" id="notes">
+    <section class="section">
       <div class="section-inner">
-        <div class="section-kicker">AI Notes</div>
-        <h2>Ideas for the next interface.</h2>
-        <p class="section-description">
-          Long-form thinking on AI agents, LLM applications, smart devices,
-          automation platforms, and product strategy.
+        <div class="section-eyebrow">A new computing layer</div>
+        <h2>AI is moving from answer engines to execution systems.</h2>
+        <p class="section-copy">
+          The most important shift is not that models can write better text.
+          It is that AI can understand intent, call tools, remember context,
+          coordinate systems, and complete real-world tasks.
+        </p>
+      </div>
+    </section>
+
+    <section class="highlight-wrap" id="highlights">
+      <div class="highlight-header">
+        <h2>Get the highlights.</h2>
+        <a href="#trends">See the trends ›</a>
+      </div>
+
+      <div class="highlights">
+        <article class="highlight-card large">
+          <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=1400&q=85" alt="AI visualization" />
+          <div class="highlight-copy">
+            <div class="highlight-label">AI Agent</div>
+            <h3>Understands goals. Calls tools. Completes tasks.</h3>
+            <p>
+              Agents turn language into action by connecting models with APIs,
+              devices, workflows, and memory.
+            </p>
+          </div>
+        </article>
+
+        <article class="highlight-card">
+          <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=85" alt="automation infrastructure" />
+          <div class="highlight-copy">
+            <div class="highlight-label">Automation</div>
+            <h3>Workflows that know the context.</h3>
+            <p>
+              Automation evolves from fixed rules into adaptive systems that can
+              reason over context and constraints.
+            </p>
+          </div>
+        </article>
+
+        <article class="highlight-card">
+          <img src="https://images.unsplash.com/photo-1558346490-a72e53ae2d4f?auto=format&fit=crop&w=1200&q=85" alt="smart home interior" />
+          <div class="highlight-copy">
+            <div class="highlight-label">Smart Home</div>
+            <h3>The home becomes a living system.</h3>
+            <p>
+              Devices, rooms, sensors, energy, health, and user habits can be
+              coordinated through an intelligent agent layer.
+            </p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="deep-section">
+      <div class="two-col">
+        <div class="copy-panel">
+          <div class="section-eyebrow">Why it matters</div>
+          <h2>Software is no longer the final interface.</h2>
+          <p>
+            Apps, dashboards, and voice commands are still useful. But the next
+            step is an agent that can understand the user’s goal, select the
+            right tools, and execute across multiple systems.
+          </p>
+          <p>
+            This is especially important in the home, where the user does not
+            want to manage devices. The user wants comfort, safety, energy savings,
+            and peace of mind.
+          </p>
+        </div>
+
+        <div class="image-panel">
+          <img src="https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=1400&q=85" alt="futuristic architecture" />
+        </div>
+      </div>
+    </section>
+
+    <section class="tools-section" id="tools">
+      <div class="section-inner">
+        <div class="section-eyebrow">Agent tools</div>
+        <h2>From models to usable systems.</h2>
+        <p class="section-copy">
+          Real AI Agent products need more than a model. They need tool calling,
+          memory, device control, permissions, observability, and a stable runtime.
         </p>
       </div>
 
-      <div class="cards">
-        <article class="card">
-          <div class="card-copy">
-            <div class="card-label">AI Agent</div>
-            <h3>Beyond chat. Toward action.</h3>
-            <p>
-              Agents are not just conversational interfaces. They understand goals,
-              call tools, coordinate systems, and complete tasks.
-            </p>
-          </div>
-          <img src="https://images.unsplash.com/photo-1677756119517-756a188d2d94?auto=format&fit=crop&w=1200&q=85" alt="AI agent visual" />
-        </article>
-
-        <article class="card">
-          <div class="card-copy">
-            <div class="card-label">LLM Workflow</div>
-            <h3>AI as a product co-pilot.</h3>
-            <p>
-              Research, analysis, PRDs, strategy documents, and executive communication
-              are being redesigned around large language models.
-            </p>
-          </div>
-          <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=85" alt="AI workspace" />
-        </article>
-
-        <article class="card">
-          <div class="card-copy">
-            <div class="card-label">Automation</div>
-            <h3>Workflows that understand context.</h3>
-            <p>
-              Meaningful automation is organized around goals, permissions, memory,
-              and connected toolchains — not just scripts.
-            </p>
-          </div>
-          <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=85" alt="automation infrastructure" />
-        </article>
-      </div>
-    </section>
-
-    <section class="black-section" id="lab">
-      <div class="section-kicker">AI Lab</div>
-      <h2>Experiments that turn ideas into systems.</h2>
-      <p class="section-description">
-        Demos, diagrams, HTML reports, technical notes, and product research —
-        organized as a long-term personal AI knowledge base.
-      </p>
-
-      <div class="lab-grid">
-        <div class="lab-item">
-          <span>01</span>
-          <strong>AI Agent Systems</strong>
+      <div class="tools-grid">
+        <div class="tool-card">
+          <span class="num">01</span>
+          <strong>OpenClaw / 小龙虾</strong>
           <p>
-            Exploring goal understanding, task decomposition, tool calling,
-            memory, and agent orchestration.
+            A practical direction for connecting AI agents with Home Assistant,
+            device APIs, voice input, and local automation experiments.
           </p>
         </div>
 
-        <div class="lab-item">
-          <span>02</span>
-          <strong>Smart Home Intelligence</strong>
+        <div class="tool-card">
+          <span class="num">02</span>
+          <strong>Home Assistant</strong>
           <p>
-            Studying how devices, spaces, sensors, automation, and knowledge graphs
-            can connect through AI agents.
+            A powerful automation foundation for device control, state tracking,
+            scenes, and multi-brand smart home integration.
           </p>
         </div>
 
-        <div class="lab-item">
-          <span>03</span>
-          <strong>Product Research</strong>
+        <div class="tool-card">
+          <span class="num">03</span>
+          <strong>MCP and APIs</strong>
           <p>
-            Notes on AI products, hardware interfaces, voice interaction,
-            automation platforms, and developer ecosystems.
+            A structured way for agents to understand tools, parameters,
+            capabilities, and execution boundaries.
           </p>
         </div>
 
-        <div class="lab-item">
-          <span>04</span>
-          <strong>Personal Workflow</strong>
+        <div class="tool-card">
+          <span class="num">04</span>
+          <strong>Memory Layer</strong>
           <p>
-            Using AI to improve research, analysis, content creation,
-            project management, and continuous reflection.
+            Short-term, mid-term, and long-term memory help agents understand
+            people, spaces, preferences, and recurring tasks.
           </p>
         </div>
       </div>
     </section>
 
-    <section class="feature-split" id="workflow">
-      <div class="split-inner">
-        <div class="split-copy">
-          <div class="section-kicker">Workflow</div>
-          <h2>From information to intelligence.</h2>
-          <p>
-            The future workflow is not about using more tools. It is about building
-            a personal intelligence layer that understands context, remembers decisions,
-            and helps turn ideas into outcomes.
-          </p>
-        </div>
-
-        <div class="split-image">
-          <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1200&q=85" alt="modern technology workspace" />
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="about">
+    <section class="home-section" id="home">
       <div class="section-inner">
-        <div class="section-kicker">About</div>
-        <h2>Nicholas AI Studio is a place to think, test, and publish.</h2>
-        <p class="section-description">
-          This site is built for sharing long-term thinking on AI agents,
-          large language models, intelligent automation, and product innovation.
-          It also serves as a simple place to publish HTML reports, diagrams,
-          technical notes, and project ideas through public links.
+        <div class="section-eyebrow">Smart home applications</div>
+        <h2>A smarter home should act before you ask.</h2>
+        <p class="section-copy">
+          AI Agent is not just another voice assistant. In the home, it can become
+          the orchestration layer across devices, rooms, energy, health, safety,
+          and daily routines.
+        </p>
+      </div>
+
+      <div class="home-grid">
+        <article class="home-card">
+          <div class="text">
+            <span>Comfort</span>
+            <h3>From device control to scene intelligence.</h3>
+            <p>
+              Instead of asking users to control every air conditioner, light,
+              curtain, or sensor, the agent can understand comfort goals and adjust
+              the environment automatically.
+            </p>
+          </div>
+          <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=85" alt="modern living room" />
+        </article>
+
+        <article class="home-card">
+          <div class="text">
+            <span>Energy</span>
+            <h3>From passive usage to active scheduling.</h3>
+            <p>
+              Agents can combine occupancy, electricity price, solar generation,
+              appliance status, and user habits to optimize energy consumption.
+            </p>
+          </div>
+          <img src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=1200&q=85" alt="energy infrastructure" />
+        </article>
+
+        <article class="home-card">
+          <div class="text">
+            <span>Health</span>
+            <h3>From monitoring to proactive care.</h3>
+            <p>
+              Sleep, air quality, temperature, humidity, lighting, and abnormal
+              events can be fused into a health-aware home intelligence system.
+            </p>
+          </div>
+          <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1200&q=85" alt="health and wellbeing" />
+        </article>
+      </div>
+    </section>
+
+    <section class="trend-section" id="trends">
+      <div class="section-inner">
+        <div class="section-eyebrow">AI trends</div>
+        <h2>What comes next.</h2>
+        <p class="section-copy">
+          The AI industry is shifting from model capability competition to
+          application-layer execution, ecosystem integration, and agent-native products.
+        </p>
+      </div>
+
+      <div class="trend-list">
+        <div class="trend-row">
+          <strong>01. Multimodal agents</strong>
+          <p>
+            Agents will understand text, voice, images, device states, environment
+            signals, and user behavior in one context.
+          </p>
+        </div>
+
+        <div class="trend-row">
+          <strong>02. Tool-native products</strong>
+          <p>
+            The best AI products will not only chat. They will safely call tools,
+            operate workflows, and produce verifiable outcomes.
+          </p>
+        </div>
+
+        <div class="trend-row">
+          <strong>03. Personal memory</strong>
+          <p>
+            AI will become more useful as it remembers preferences, routines,
+            projects, family context, and long-term goals.
+          </p>
+        </div>
+
+        <div class="trend-row">
+          <strong>04. Edge and cloud collaboration</strong>
+          <p>
+            Fast local control, privacy-sensitive processing, and cloud reasoning
+            will work together instead of replacing each other.
+          </p>
+        </div>
+
+        <div class="trend-row">
+          <strong>05. Smart spaces</strong>
+          <p>
+            Homes, offices, cars, hotels, and communities will become programmable
+            environments coordinated by agent systems.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="closing">
+      <div>
+        <h2>Build agents that understand the world around us.</h2>
+        <p>
+          Nicholas AI Studio is a personal space for studying, testing, and sharing
+          the systems that will connect AI with real life.
         </p>
       </div>
     </section>
@@ -598,7 +981,7 @@
   <footer class="footer">
     <div class="footer-inner">
       <span>© 2026 Nicholas AI Studio. Built with GitHub Pages.</span>
-      <span>AI Agents · LLMs · Automation · Product Thinking</span>
+      <span>AI Agent · OpenClaw · Smart Home · Automation</span>
     </div>
   </footer>
 </body>
