@@ -1,341 +1,605 @@
 <!DOCTYPE html>
-
-<html lang="zh-CN">
-
+<html lang="en">
 <head>
-
   <meta charset="UTF-8" />
-
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
   <title>Nicholas AI Studio</title>
-
-  <meta name="description" content="Nicholas AI Studio - AI Agent、大模型应用、智能自动化与产品思考。" />
+  <meta name="description" content="Nicholas AI Studio - Personal AI insights, AI Agent experiments, automation notes, and product thinking." />
 
   <style>
+    :root {
+      --black: #000000;
+      --white: #ffffff;
+      --paper: #f5f5f7;
+      --text: #1d1d1f;
+      --muted: #6e6e73;
+      --blue: #0071e3;
+      --line: rgba(0, 0, 0, 0.08);
+    }
 
-    :root{--bg:#050816;--panel:#0b1228;--text:#f8fbff;--muted:#aab7cf;--line:rgba(255,255,255,.14);--cyan:#35d3ff;--violet:#8b5cf6;--pink:#ec4899;--dark:#08111f}
+    * {
+      box-sizing: border-box;
+    }
 
-    *{box-sizing:border-box}
+    html {
+      scroll-behavior: smooth;
+    }
 
-    html{scroll-behavior:smooth}
+    body {
+      margin: 0;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Display",
+        "SF Pro Text",
+        "Helvetica Neue",
+        Arial,
+        sans-serif;
+      background: var(--white);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
 
-    body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:#f6f8fc;color:#0f172a}
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-    a{text-decoration:none;color:inherit}
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      height: 52px;
+      backdrop-filter: saturate(180%) blur(20px);
+      background: rgba(255, 255, 255, 0.78);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    }
 
-    .hero{min-height:100vh;color:var(--text);background:linear-gradient(120deg,rgba(5,8,22,.95),rgba(6,12,34,.75)),url('https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=2200&q=85') center/cover;position:relative;overflow:hidden}
+    .topbar-inner {
+      max-width: 1024px;
+      height: 52px;
+      margin: 0 auto;
+      padding: 0 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
 
-    .hero:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 20% 20%,rgba(53,211,255,.28),transparent 26rem),radial-gradient(circle at 82% 12%,rgba(139,92,246,.33),transparent 28rem),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(0deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:auto,auto,60px 60px,60px 60px}
+    .brand {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
 
-    .nav,.hero-inner,.section{position:relative;z-index:1;max-width:1180px;margin:auto}
+    .nav {
+      display: flex;
+      gap: 26px;
+      font-size: 12px;
+      color: #424245;
+    }
 
-    .nav{display:flex;justify-content:space-between;align-items:center;padding:28px}
+    .nav a:hover {
+      color: var(--blue);
+    }
 
-    .brand{font-weight:900;font-size:22px;letter-spacing:-.03em}
+    .hero {
+      background: var(--paper);
+      text-align: center;
+      overflow: hidden;
+      padding: 96px 24px 0;
+    }
 
-    .brand span{color:var(--cyan)}
+    .eyebrow {
+      font-size: 22px;
+      line-height: 1.2;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
 
-    .nav-links{display:flex;gap:24px;color:#dbeafe;font-size:14px}
+    h1 {
+      max-width: 980px;
+      margin: 0 auto;
+      font-size: clamp(58px, 9vw, 118px);
+      line-height: 0.94;
+      letter-spacing: -0.075em;
+      font-weight: 700;
+    }
 
-    .hero-inner{display:grid;grid-template-columns:1.05fr .95fr;gap:46px;align-items:center;padding:90px 28px 120px}
+    .hero-subtitle {
+      max-width: 760px;
+      margin: 30px auto 34px;
+      font-size: clamp(22px, 3vw, 32px);
+      line-height: 1.18;
+      letter-spacing: -0.04em;
+      color: #2f2f31;
+      font-weight: 500;
+    }
 
-    .eyebrow{display:inline-flex;gap:8px;align-items:center;padding:9px 14px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.08);backdrop-filter:blur(18px);color:#dbeafe;font-weight:700;font-size:14px}
+    .hero-links {
+      display: flex;
+      justify-content: center;
+      gap: 26px;
+      margin-bottom: 54px;
+      font-size: 21px;
+      line-height: 1.3;
+      color: var(--blue);
+      font-weight: 400;
+    }
 
-    .dot{width:8px;height:8px;border-radius:50%;background:var(--cyan);box-shadow:0 0 18px var(--cyan)}
+    .hero-links a:hover {
+      text-decoration: underline;
+    }
 
-    h1{font-size:clamp(54px,8vw,108px);line-height:.95;letter-spacing:-.075em;margin:24px 0 26px;max-width:900px}
+    .hero-visual {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 20px 74px;
+    }
 
-    .gradient{background:linear-gradient(90deg,#fff,#93c5fd,#67e8f9);-webkit-background-clip:text;background-clip:text;color:transparent}
+    .device-frame {
+      position: relative;
+      overflow: hidden;
+      border-radius: 42px;
+      background: #000;
+      box-shadow:
+        0 42px 100px rgba(0, 0, 0, 0.18),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+    }
 
-    .hero p{font-size:21px;line-height:1.75;color:#c8d6ee;max-width:760px;margin:0 0 34px}
+    .device-frame img {
+      width: 100%;
+      height: min(62vw, 640px);
+      min-height: 360px;
+      object-fit: cover;
+      display: block;
+      opacity: 0.92;
+    }
 
-    .actions{display:flex;gap:14px;flex-wrap:wrap}
+    .image-overlay {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,0.10), rgba(0,0,0,0.45)),
+        radial-gradient(circle at 50% 15%, rgba(255,255,255,0.22), transparent 24rem);
+      pointer-events: none;
+    }
 
-    .btn{padding:14px 21px;border-radius:16px;font-weight:800;border:1px solid var(--line)}
+    .section {
+      padding: 112px 24px;
+    }
 
-    .btn.primary{background:linear-gradient(135deg,var(--cyan),var(--violet));color:white;border:0;box-shadow:0 18px 42px rgba(53,211,255,.22)}
+    .section-inner {
+      max-width: 1024px;
+      margin: 0 auto;
+    }
 
-    .btn.secondary{background:rgba(255,255,255,.08);color:#eaf2ff}
+    .section-kicker {
+      color: var(--muted);
+      font-size: 21px;
+      line-height: 1.2;
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      margin-bottom: 12px;
+    }
 
-    .visual-card{background:rgba(8,17,31,.62);border:1px solid var(--line);border-radius:34px;padding:16px;backdrop-filter:blur(20px);box-shadow:0 30px 80px rgba(0,0,0,.34)}
+    h2 {
+      max-width: 860px;
+      margin: 0;
+      font-size: clamp(44px, 6vw, 80px);
+      line-height: 0.98;
+      letter-spacing: -0.065em;
+      font-weight: 700;
+    }
 
-    .visual-card img{width:100%;height:360px;object-fit:cover;border-radius:24px;display:block}
+    .section-description {
+      max-width: 760px;
+      margin-top: 26px;
+      color: var(--muted);
+      font-size: 24px;
+      line-height: 1.25;
+      letter-spacing: -0.04em;
+      font-weight: 500;
+    }
 
-    .metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+    .cards {
+      max-width: 1180px;
+      margin: 56px auto 0;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
 
-    .metric{border:1px solid var(--line);border-radius:18px;padding:14px;background:rgba(255,255,255,.06)}
+    .card {
+      min-height: 520px;
+      background: var(--paper);
+      border-radius: 34px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
 
-    .metric strong{display:block;font-size:24px}
+    .card-copy {
+      padding: 34px 32px 22px;
+    }
 
-    .metric span{font-size:12px;color:#b8c6dd}
+    .card-label {
+      color: var(--muted);
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
 
-    .section{padding:92px 28px}
+    .card h3 {
+      margin: 0;
+      color: var(--text);
+      font-size: 31px;
+      line-height: 1.05;
+      letter-spacing: -0.055em;
+      font-weight: 700;
+    }
 
-    .section-title{max-width:760px;margin-bottom:36px}
+    .card p {
+      margin: 16px 0 0;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.35;
+      letter-spacing: -0.03em;
+      font-weight: 500;
+    }
 
-    .kicker{color:#6d28d9;font-weight:900;letter-spacing:.12em;text-transform:uppercase;font-size:13px}
+    .card img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      margin-top: auto;
+      display: block;
+    }
 
-    h2{font-size:clamp(34px,5vw,60px);line-height:1.05;letter-spacing:-.055em;margin:10px 0 14px}
+    .black-section {
+      background: #000;
+      color: #f5f5f7;
+      text-align: center;
+      padding: 122px 24px;
+      overflow: hidden;
+    }
 
-    .section-title p{font-size:18px;color:#64748b;line-height:1.8}
+    .black-section h2 {
+      margin: 0 auto;
+      max-width: 940px;
+      color: #f5f5f7;
+    }
 
-    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+    .black-section .section-description {
+      margin-left: auto;
+      margin-right: auto;
+      color: #a1a1a6;
+    }
 
-    .card{background:white;border:1px solid #e5e7eb;border-radius:28px;overflow:hidden;box-shadow:0 22px 60px rgba(15,23,42,.08)}
+    .lab-grid {
+      max-width: 1080px;
+      margin: 62px auto 0;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+      text-align: left;
+    }
 
-    .card img{width:100%;height:190px;object-fit:cover;display:block}
+    .lab-item {
+      min-height: 260px;
+      border-radius: 32px;
+      background: #161617;
+      padding: 32px;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
 
-    .card-body{padding:24px}
+    .lab-item span {
+      display: block;
+      color: #86868b;
+      font-size: 15px;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
 
-    .tag{display:inline-flex;padding:5px 10px;border-radius:999px;background:#eef2ff;color:#5b21b6;font-size:12px;font-weight:900;margin-bottom:14px}
+    .lab-item strong {
+      display: block;
+      font-size: 32px;
+      line-height: 1.05;
+      letter-spacing: -0.055em;
+      font-weight: 700;
+    }
 
-    .card h3{font-size:25px;line-height:1.22;letter-spacing:-.035em;margin:0 0 12px}
+    .lab-item p {
+      margin: 18px 0 0;
+      color: #a1a1a6;
+      font-size: 18px;
+      line-height: 1.45;
+      letter-spacing: -0.03em;
+      font-weight: 500;
+    }
 
-    .card p{color:#5b6472;line-height:1.75;margin:0 0 18px}
+    .feature-split {
+      background: var(--paper);
+      padding: 110px 24px;
+    }
 
-    .card a{font-weight:900;color:#2563eb}
+    .split-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      align-items: stretch;
+    }
 
-    .dark-band{background:#07111f;color:#f8fafc}
+    .split-copy {
+      background: #fff;
+      border-radius: 34px;
+      padding: 54px 44px;
+    }
 
-    .dark-band .section-title p{color:#b9c6da}
+    .split-copy h2 {
+      font-size: clamp(42px, 5vw, 68px);
+    }
 
-    .lab-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+    .split-copy p {
+      margin-top: 24px;
+      color: var(--muted);
+      font-size: 22px;
+      line-height: 1.32;
+      letter-spacing: -0.04em;
+      font-weight: 500;
+    }
 
-    .lab-item{border:1px solid rgba(255,255,255,.12);border-radius:28px;padding:26px;background:linear-gradient(180deg,rgba(255,255,255,.09),rgba(255,255,255,.04))}
+    .split-image {
+      overflow: hidden;
+      border-radius: 34px;
+      background: #000;
+      min-height: 520px;
+    }
 
-    .lab-item strong{font-size:24px}
+    .split-image img {
+      width: 100%;
+      height: 100%;
+      min-height: 520px;
+      object-fit: cover;
+      display: block;
+    }
 
-    .lab-item p{color:#b9c6da;line-height:1.8}
+    .footer {
+      background: var(--paper);
+      color: #6e6e73;
+      font-size: 12px;
+      line-height: 1.5;
+      padding: 30px 24px;
+    }
 
-    .about{display:grid;grid-template-columns:.9fr 1.1fr;gap:28px;align-items:center}
+    .footer-inner {
+      max-width: 1024px;
+      margin: 0 auto;
+      border-top: 1px solid var(--line);
+      padding-top: 18px;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
 
-    .about img{width:100%;height:390px;object-fit:cover;border-radius:30px;box-shadow:0 22px 60px rgba(15,23,42,.12)}
+    @media (max-width: 900px) {
+      .nav {
+        gap: 16px;
+      }
 
-    .about-box{background:white;border:1px solid #e5e7eb;border-radius:30px;padding:34px;box-shadow:0 22px 60px rgba(15,23,42,.08)}
+      .hero {
+        padding-top: 72px;
+      }
 
-    .about-box p{font-size:18px;color:#4b5563;line-height:1.85}
+      h1 {
+        font-size: 58px;
+      }
 
-    .footer{padding:34px;text-align:center;background:#050816;color:#94a3b8}
+      .hero-subtitle {
+        font-size: 24px;
+      }
 
-    @media(max-width:900px){.hero-inner,.grid,.lab-grid,.about{grid-template-columns:1fr}.nav{align-items:flex-start;gap:14px;flex-direction:column}.nav-links{flex-wrap:wrap}.visual-card img{height:280px}h1{font-size:54px}}
+      .hero-links {
+        font-size: 19px;
+      }
 
+      .device-frame {
+        border-radius: 28px;
+      }
+
+      .cards,
+      .lab-grid,
+      .split-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .card {
+        min-height: auto;
+      }
+
+      .section,
+      .black-section,
+      .feature-split {
+        padding-top: 82px;
+        padding-bottom: 82px;
+      }
+    }
   </style>
-
 </head>
 
 <body>
-
-  <header class="hero">
-
-    <nav class="nav">
-
-      <div class="brand">Nicholas <span>AI</span> Studio</div>
-
-      <div class="nav-links">
-
-        <a href="#notes">AI Notes</a>
-
-        <a href="#lab">AI Lab</a>
-
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">Nicholas AI Studio</div>
+      <nav class="nav">
+        <a href="#notes">Notes</a>
+        <a href="#lab">Lab</a>
+        <a href="#workflow">Workflow</a>
         <a href="#about">About</a>
-
-      </div>
-
-    </nav>
-
-    <section class="hero-inner">
-
-      <div>
-
-        <div class="eyebrow"><i class="dot"></i> AI Agent · LLM · Automation · Product Thinking</div>
-
-        <h1>Building the Future with <span class="gradient">AI Agents</span></h1>
-
-        <p>一个面向 AI 时代的个人内容站：记录 AI Agent、大模型应用、智能自动化、产品设计与未来人机交互的观察、实验和方法论。</p>
-
-        <div class="actions">
-
-          <a class="btn primary" href="#notes">Explore Notes</a>
-
-          <a class="btn secondary" href="#lab">View Experiments</a>
-
-        </div>
-
-      </div>
-
-      <div class="visual-card">
-
-        <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=1200&q=85" alt="AI technology visualization" />
-
-        <div class="metrics">
-
-          <div class="metric"><strong>AI</strong><span>Product Thinking</span></div>
-
-          <div class="metric"><strong>Agent</strong><span>Tool Calling</span></div>
-
-          <div class="metric"><strong>Auto</strong><span>Smart Workflow</span></div>
-
-        </div>
-
-      </div>
-
-    </section>
-
+      </nav>
+    </div>
   </header>
 
   <main>
-
-    <section class="section" id="notes">
-
-      <div class="section-title">
-
-        <div class="kicker">AI Notes</div>
-
-        <h2>AI 观察与深度内容</h2>
-
-        <p>这里会持续沉淀我对 AI Agent、大模型应用、智能设备入口、自动化系统和产品创新的研究与判断。</p>
-
+    <section class="hero">
+      <div class="eyebrow">AI Agent · Product Thinking · Intelligent Automation</div>
+      <h1>Think deeply.<br />Build intelligently.</h1>
+      <p class="hero-subtitle">
+        A personal studio for exploring AI agents, large language models,
+        automation systems, and the future of human-computer interaction.
+      </p>
+      <div class="hero-links">
+        <a href="#notes">Explore notes ›</a>
+        <a href="#lab">View experiments ›</a>
       </div>
 
-      <div class="grid">
-
-        <article class="card">
-
-          <img src="https://images.unsplash.com/photo-1677756119517-756a188d2d94?auto=format&fit=crop&w=1000&q=85" alt="AI neural network" />
-
-          <div class="card-body">
-
-            <span class="tag">AI Agent</span>
-
-            <h3>为什么 AI Agent 会成为下一代入口？</h3>
-
-            <p>从被动问答到主动执行，Agent 的价值在于理解目标、调用工具、连接系统并完成任务。</p>
-
-            <a href="#lab">查看方向 →</a>
-
-          </div>
-
-        </article>
-
-        <article class="card">
-
-          <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1000&q=85" alt="AI work desk" />
-
-          <div class="card-body">
-
-            <span class="tag">LLM Workflow</span>
-
-            <h3>大模型如何改变产品经理工作方式</h3>
-
-            <p>资料检索、竞品分析、方案生成、需求评审和汇报表达，都可以被 AI 重构。</p>
-
-            <a href="#">Coming soon →</a>
-
-          </div>
-
-        </article>
-
-        <article class="card">
-
-          <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1000&q=85" alt="automation server" />
-
-          <div class="card-body">
-
-            <span class="tag">Automation</span>
-
-            <h3>自动化不是脚本，而是新的工作流系统</h3>
-
-            <p>真正有价值的自动化，应围绕人的目标、上下文、权限、记忆和工具链进行组织。</p>
-
-            <a href="#">Coming soon →</a>
-
-          </div>
-
-        </article>
-
+      <div class="hero-visual">
+        <div class="device-frame">
+          <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=2200&q=85" alt="AI neural visualization" />
+          <div class="image-overlay"></div>
+        </div>
       </div>
-
     </section>
 
-    <section class="dark-band" id="lab">
-
-      <div class="section">
-
-        <div class="section-title">
-
-          <div class="kicker">AI Lab</div>
-
-          <h2>个人 AI 实验室方向</h2>
-
-          <p>我会把 Demo、流程图、HTML 报告、技术笔记和产品研究都沉淀到这里，形成一个长期可迭代的知识站。</p>
-
-        </div>
-
-        <div class="lab-grid">
-
-          <div class="lab-item">
-
-            <strong>01 · AI Agent System</strong>
-
-            <p>研究 Agent 如何理解用户目标、拆解任务、调用工具、管理记忆，并从“回答问题”升级到“完成任务”。</p>
-
-          </div>
-
-          <div class="lab-item">
-
-            <strong>02 · Smart Home Intelligence</strong>
-
-            <p>探索家庭设备、空间、人、传感器、自动化和知识图谱如何与 AI Agent 结合。</p>
-
-          </div>
-
-          <div class="lab-item">
-
-            <strong>03 · Product Research</strong>
-
-            <p>沉淀 AI 产品、硬件入口、语音交互、自动化平台和开发者生态的研究报告。</p>
-
-          </div>
-
-          <div class="lab-item">
-
-            <strong>04 · Personal Workflow</strong>
-
-            <p>用 AI 改造个人工作流：信息获取、分析判断、内容生成、项目管理和持续复盘。</p>
-
-          </div>
-
-        </div>
-
+    <section class="section" id="notes">
+      <div class="section-inner">
+        <div class="section-kicker">AI Notes</div>
+        <h2>Ideas for the next interface.</h2>
+        <p class="section-description">
+          Long-form thinking on AI agents, LLM applications, smart devices,
+          automation platforms, and product strategy.
+        </p>
       </div>
 
+      <div class="cards">
+        <article class="card">
+          <div class="card-copy">
+            <div class="card-label">AI Agent</div>
+            <h3>Beyond chat. Toward action.</h3>
+            <p>
+              Agents are not just conversational interfaces. They understand goals,
+              call tools, coordinate systems, and complete tasks.
+            </p>
+          </div>
+          <img src="https://images.unsplash.com/photo-1677756119517-756a188d2d94?auto=format&fit=crop&w=1200&q=85" alt="AI agent visual" />
+        </article>
+
+        <article class="card">
+          <div class="card-copy">
+            <div class="card-label">LLM Workflow</div>
+            <h3>AI as a product co-pilot.</h3>
+            <p>
+              Research, analysis, PRDs, strategy documents, and executive communication
+              are being redesigned around large language models.
+            </p>
+          </div>
+          <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=85" alt="AI workspace" />
+        </article>
+
+        <article class="card">
+          <div class="card-copy">
+            <div class="card-label">Automation</div>
+            <h3>Workflows that understand context.</h3>
+            <p>
+              Meaningful automation is organized around goals, permissions, memory,
+              and connected toolchains — not just scripts.
+            </p>
+          </div>
+          <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=85" alt="automation infrastructure" />
+        </article>
+      </div>
+    </section>
+
+    <section class="black-section" id="lab">
+      <div class="section-kicker">AI Lab</div>
+      <h2>Experiments that turn ideas into systems.</h2>
+      <p class="section-description">
+        Demos, diagrams, HTML reports, technical notes, and product research —
+        organized as a long-term personal AI knowledge base.
+      </p>
+
+      <div class="lab-grid">
+        <div class="lab-item">
+          <span>01</span>
+          <strong>AI Agent Systems</strong>
+          <p>
+            Exploring goal understanding, task decomposition, tool calling,
+            memory, and agent orchestration.
+          </p>
+        </div>
+
+        <div class="lab-item">
+          <span>02</span>
+          <strong>Smart Home Intelligence</strong>
+          <p>
+            Studying how devices, spaces, sensors, automation, and knowledge graphs
+            can connect through AI agents.
+          </p>
+        </div>
+
+        <div class="lab-item">
+          <span>03</span>
+          <strong>Product Research</strong>
+          <p>
+            Notes on AI products, hardware interfaces, voice interaction,
+            automation platforms, and developer ecosystems.
+          </p>
+        </div>
+
+        <div class="lab-item">
+          <span>04</span>
+          <strong>Personal Workflow</strong>
+          <p>
+            Using AI to improve research, analysis, content creation,
+            project management, and continuous reflection.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="feature-split" id="workflow">
+      <div class="split-inner">
+        <div class="split-copy">
+          <div class="section-kicker">Workflow</div>
+          <h2>From information to intelligence.</h2>
+          <p>
+            The future workflow is not about using more tools. It is about building
+            a personal intelligence layer that understands context, remembers decisions,
+            and helps turn ideas into outcomes.
+          </p>
+        </div>
+
+        <div class="split-image">
+          <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1200&q=85" alt="modern technology workspace" />
+        </div>
+      </div>
     </section>
 
     <section class="section" id="about">
-
-      <div class="about">
-
-        <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1200&q=85" alt="modern technology workspace" />
-
-        <div class="about-box">
-
-          <div class="kicker">About</div>
-
-          <h2>关于 Nicholas AI Studio</h2>
-
-          <p>这是一个个人 AI 内容站，用来分享我对 AI Agent、大模型应用、智能自动化和产品创新的长期观察。后续每一份 HTML 报告、项目方案、技术笔记，都可以放到这里，通过链接直接分享给别人。</p>
-
-        </div>
-
+      <div class="section-inner">
+        <div class="section-kicker">About</div>
+        <h2>Nicholas AI Studio is a place to think, test, and publish.</h2>
+        <p class="section-description">
+          This site is built for sharing long-term thinking on AI agents,
+          large language models, intelligent automation, and product innovation.
+          It also serves as a simple place to publish HTML reports, diagrams,
+          technical notes, and project ideas through public links.
+        </p>
       </div>
-
     </section>
-
   </main>
 
-  <footer class="footer">© 2026 Nicholas AI Studio. Built with GitHub Pages.</footer>
-
+  <footer class="footer">
+    <div class="footer-inner">
+      <span>© 2026 Nicholas AI Studio. Built with GitHub Pages.</span>
+      <span>AI Agents · LLMs · Automation · Product Thinking</span>
+    </div>
+  </footer>
 </body>
-
 </html>
