@@ -1,408 +1,341 @@
 <!DOCTYPE html>
+
 <html lang="zh-CN">
+
 <head>
+
   <meta charset="UTF-8" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>Nicholas AI Studio</title>
-  <meta name="description" content="Nicholas AI Studio - 分享 AI Agent、大模型应用、智能自动化与产品思考。" />
+
+  <meta name="description" content="Nicholas AI Studio - AI Agent、大模型应用、智能自动化与产品思考。" />
+
   <style>
-    :root {
-      --bg: #0b1020;
-      --card: rgba(255, 255, 255, 0.08);
-      --text: #f8fafc;
-      --muted: #a7b0c0;
-      --line: rgba(255, 255, 255, 0.12);
-      --accent: #7c3aed;
-      --accent-2: #06b6d4;
-      --white: #ffffff;
-    }
 
-    * {
-      box-sizing: border-box;
-    }
+    :root{--bg:#050816;--panel:#0b1228;--text:#f8fbff;--muted:#aab7cf;--line:rgba(255,255,255,.14);--cyan:#35d3ff;--violet:#8b5cf6;--pink:#ec4899;--dark:#08111f}
 
-    body {
-      margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
-      background:
-        radial-gradient(circle at top left, rgba(124, 58, 237, 0.35), transparent 32rem),
-        radial-gradient(circle at top right, rgba(6, 182, 212, 0.28), transparent 30rem),
-        var(--bg);
-      color: var(--text);
-      line-height: 1.7;
-    }
+    *{box-sizing:border-box}
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
+    html{scroll-behavior:smooth}
 
-    .hero {
-      min-height: 100vh;
-      padding: 28px;
-      display: flex;
-      flex-direction: column;
-    }
+    body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:#f6f8fc;color:#0f172a}
 
-    .nav {
-      max-width: 1120px;
-      width: 100%;
-      margin: 0 auto;
-      padding: 18px 0;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
+    a{text-decoration:none;color:inherit}
 
-    .brand {
-      font-size: 20px;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-    }
+    .hero{min-height:100vh;color:var(--text);background:linear-gradient(120deg,rgba(5,8,22,.95),rgba(6,12,34,.75)),url('https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=2200&q=85') center/cover;position:relative;overflow:hidden}
 
-    .nav-links {
-      display: flex;
-      gap: 20px;
-      color: var(--muted);
-      font-size: 14px;
-    }
+    .hero:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 20% 20%,rgba(53,211,255,.28),transparent 26rem),radial-gradient(circle at 82% 12%,rgba(139,92,246,.33),transparent 28rem),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(0deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:auto,auto,60px 60px,60px 60px}
 
-    .hero-content {
-      max-width: 1120px;
-      width: 100%;
-      margin: auto;
-      padding: 80px 0 120px;
-    }
+    .nav,.hero-inner,.section{position:relative;z-index:1;max-width:1180px;margin:auto}
 
-    .eyebrow {
-      display: inline-flex;
-      padding: 8px 14px;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      color: #d7dcef;
-      background: rgba(255, 255, 255, 0.06);
-      font-size: 14px;
-      margin-bottom: 24px;
-    }
+    .nav{display:flex;justify-content:space-between;align-items:center;padding:28px}
 
-    h1 {
-      max-width: 860px;
-      font-size: clamp(42px, 7vw, 86px);
-      line-height: 1.05;
-      letter-spacing: -0.06em;
-      margin: 0 0 26px;
-    }
+    .brand{font-weight:900;font-size:22px;letter-spacing:-.03em}
 
-    .hero-content p {
-      max-width: 760px;
-      color: var(--muted);
-      font-size: 20px;
-      margin: 0 0 34px;
-    }
+    .brand span{color:var(--cyan)}
 
-    .hero-actions {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-    }
+    .nav-links{display:flex;gap:24px;color:#dbeafe;font-size:14px}
 
-    .button {
-      padding: 13px 20px;
-      border-radius: 14px;
-      font-weight: 700;
-      border: 1px solid var(--line);
-    }
+    .hero-inner{display:grid;grid-template-columns:1.05fr .95fr;gap:46px;align-items:center;padding:90px 28px 120px}
 
-    .primary {
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      color: var(--white);
-      border: 0;
-    }
+    .eyebrow{display:inline-flex;gap:8px;align-items:center;padding:9px 14px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.08);backdrop-filter:blur(18px);color:#dbeafe;font-weight:700;font-size:14px}
 
-    .secondary {
-      background: rgba(255, 255, 255, 0.06);
-      color: var(--text);
-    }
+    .dot{width:8px;height:8px;border-radius:50%;background:var(--cyan);box-shadow:0 0 18px var(--cyan)}
 
-    main {
-      background: #f8fafc;
-      color: #111827;
-    }
+    h1{font-size:clamp(54px,8vw,108px);line-height:.95;letter-spacing:-.075em;margin:24px 0 26px;max-width:900px}
 
-    .section {
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 92px 28px;
-    }
+    .gradient{background:linear-gradient(90deg,#fff,#93c5fd,#67e8f9);-webkit-background-clip:text;background-clip:text;color:transparent}
 
-    .section.alt {
-      max-width: none;
-      background: #eef2ff;
-    }
+    .hero p{font-size:21px;line-height:1.75;color:#c8d6ee;max-width:760px;margin:0 0 34px}
 
-    .section.alt > * {
-      max-width: 1120px;
-      margin-left: auto;
-      margin-right: auto;
-    }
+    .actions{display:flex;gap:14px;flex-wrap:wrap}
 
-    .section-header {
-      margin-bottom: 34px;
-    }
+    .btn{padding:14px 21px;border-radius:16px;font-weight:800;border:1px solid var(--line)}
 
-    .section-header span,
-    .section-kicker {
-      color: #6d28d9;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      font-size: 13px;
-    }
+    .btn.primary{background:linear-gradient(135deg,var(--cyan),var(--violet));color:white;border:0;box-shadow:0 18px 42px rgba(53,211,255,.22)}
 
-    h2 {
-      font-size: clamp(30px, 4vw, 48px);
-      letter-spacing: -0.04em;
-      line-height: 1.1;
-      margin: 10px 0 14px;
-    }
+    .btn.secondary{background:rgba(255,255,255,.08);color:#eaf2ff}
 
-    .section-header p {
-      color: #5b6472;
-      max-width: 720px;
-      font-size: 18px;
-    }
+    .visual-card{background:rgba(8,17,31,.62);border:1px solid var(--line);border-radius:34px;padding:16px;backdrop-filter:blur(20px);box-shadow:0 30px 80px rgba(0,0,0,.34)}
 
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
+    .visual-card img{width:100%;height:360px;object-fit:cover;border-radius:24px;display:block}
 
-    .card {
-      background: #ffffff;
-      border: 1px solid #e5e7eb;
-      border-radius: 24px;
-      padding: 26px;
-      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.06);
-      min-height: 280px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
+    .metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
 
-    .featured-card {
-      background: #111827;
-      color: #ffffff;
-    }
+    .metric{border:1px solid var(--line);border-radius:18px;padding:14px;background:rgba(255,255,255,.06)}
 
-    .card-tag {
-      color: #7c3aed;
-      font-weight: 800;
-      font-size: 13px;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 20px;
-    }
+    .metric strong{display:block;font-size:24px}
 
-    .featured-card .card-tag {
-      color: #67e8f9;
-    }
+    .metric span{font-size:12px;color:#b8c6dd}
 
-    .card h3 {
-      font-size: 24px;
-      line-height: 1.25;
-      letter-spacing: -0.03em;
-      margin: 0 0 14px;
-    }
+    .section{padding:92px 28px}
 
-    .card p {
-      color: #5b6472;
-      margin: 0 0 20px;
-    }
+    .section-title{max-width:760px;margin-bottom:36px}
 
-    .featured-card p {
-      color: #cbd5e1;
-    }
+    .kicker{color:#6d28d9;font-weight:900;letter-spacing:.12em;text-transform:uppercase;font-size:13px}
 
-    .card a {
-      color: #67e8f9;
-      font-weight: 800;
-    }
+    h2{font-size:clamp(34px,5vw,60px);line-height:1.05;letter-spacing:-.055em;margin:10px 0 14px}
 
-    .coming {
-      color: #6b7280;
-      font-weight: 700;
-    }
+    .section-title p{font-size:18px;color:#64748b;line-height:1.8}
 
-    .timeline {
-      display: grid;
-      gap: 16px;
-    }
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 
-    .timeline-item {
-      background: rgba(255, 255, 255, 0.72);
-      border: 1px solid #dbe3ff;
-      border-radius: 22px;
-      padding: 24px;
-    }
+    .card{background:white;border:1px solid #e5e7eb;border-radius:28px;overflow:hidden;box-shadow:0 22px 60px rgba(15,23,42,.08)}
 
-    .timeline-item strong {
-      font-size: 20px;
-    }
+    .card img{width:100%;height:190px;object-fit:cover;display:block}
 
-    .timeline-item p {
-      color: #4b5563;
-      margin: 8px 0 0;
-    }
+    .card-body{padding:24px}
 
-    .about-box {
-      display: grid;
-      grid-template-columns: 0.9fr 1.2fr;
-      gap: 40px;
-      align-items: start;
-      background: #ffffff;
-      border: 1px solid #e5e7eb;
-      border-radius: 28px;
-      padding: 36px;
-      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.06);
-    }
+    .tag{display:inline-flex;padding:5px 10px;border-radius:999px;background:#eef2ff;color:#5b21b6;font-size:12px;font-weight:900;margin-bottom:14px}
 
-    .about-box p {
-      color: #4b5563;
-      font-size: 18px;
-      margin: 0;
-    }
+    .card h3{font-size:25px;line-height:1.22;letter-spacing:-.035em;margin:0 0 12px}
 
-    .footer {
-      background: #0b1020;
-      color: #94a3b8;
-      text-align: center;
-      padding: 28px;
-    }
+    .card p{color:#5b6472;line-height:1.75;margin:0 0 18px}
 
-    @media (max-width: 860px) {
-      .nav {
-        align-items: flex-start;
-        gap: 12px;
-        flex-direction: column;
-      }
+    .card a{font-weight:900;color:#2563eb}
 
-      .card-grid,
-      .about-box {
-        grid-template-columns: 1fr;
-      }
+    .dark-band{background:#07111f;color:#f8fafc}
 
-      .hero-content {
-        padding: 60px 0 80px;
-      }
+    .dark-band .section-title p{color:#b9c6da}
 
-      .hero-content p {
-        font-size: 17px;
-      }
-    }
+    .lab-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+
+    .lab-item{border:1px solid rgba(255,255,255,.12);border-radius:28px;padding:26px;background:linear-gradient(180deg,rgba(255,255,255,.09),rgba(255,255,255,.04))}
+
+    .lab-item strong{font-size:24px}
+
+    .lab-item p{color:#b9c6da;line-height:1.8}
+
+    .about{display:grid;grid-template-columns:.9fr 1.1fr;gap:28px;align-items:center}
+
+    .about img{width:100%;height:390px;object-fit:cover;border-radius:30px;box-shadow:0 22px 60px rgba(15,23,42,.12)}
+
+    .about-box{background:white;border:1px solid #e5e7eb;border-radius:30px;padding:34px;box-shadow:0 22px 60px rgba(15,23,42,.08)}
+
+    .about-box p{font-size:18px;color:#4b5563;line-height:1.85}
+
+    .footer{padding:34px;text-align:center;background:#050816;color:#94a3b8}
+
+    @media(max-width:900px){.hero-inner,.grid,.lab-grid,.about{grid-template-columns:1fr}.nav{align-items:flex-start;gap:14px;flex-direction:column}.nav-links{flex-wrap:wrap}.visual-card img{height:280px}h1{font-size:54px}}
+
   </style>
+
 </head>
+
 <body>
+
   <header class="hero">
+
     <nav class="nav">
-      <div class="brand">Nicholas AI Studio</div>
+
+      <div class="brand">Nicholas <span>AI</span> Studio</div>
+
       <div class="nav-links">
+
         <a href="#notes">AI Notes</a>
-        <a href="#experiments">Experiments</a>
+
+        <a href="#lab">AI Lab</a>
+
         <a href="#about">About</a>
+
       </div>
+
     </nav>
 
-    <section class="hero-content">
-      <div class="eyebrow">Personal AI Lab · Product Thinking · Automation</div>
-      <h1>探索 AI Agent、大模型应用与智能自动化的个人内容站</h1>
-      <p>
-        这里记录我对 AI Agent、智能家居 AI、大模型工具、自动化系统、产品设计与未来人机交互的观察、实验和思考。
-      </p>
-      <div class="hero-actions">
-        <a class="button primary" href="#notes">查看内容</a>
-        <a class="button secondary" href="#experiments">实验方向</a>
+    <section class="hero-inner">
+
+      <div>
+
+        <div class="eyebrow"><i class="dot"></i> AI Agent · LLM · Automation · Product Thinking</div>
+
+        <h1>Building the Future with <span class="gradient">AI Agents</span></h1>
+
+        <p>一个面向 AI 时代的个人内容站：记录 AI Agent、大模型应用、智能自动化、产品设计与未来人机交互的观察、实验和方法论。</p>
+
+        <div class="actions">
+
+          <a class="btn primary" href="#notes">Explore Notes</a>
+
+          <a class="btn secondary" href="#lab">View Experiments</a>
+
+        </div>
+
       </div>
+
+      <div class="visual-card">
+
+        <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=1200&q=85" alt="AI technology visualization" />
+
+        <div class="metrics">
+
+          <div class="metric"><strong>AI</strong><span>Product Thinking</span></div>
+
+          <div class="metric"><strong>Agent</strong><span>Tool Calling</span></div>
+
+          <div class="metric"><strong>Auto</strong><span>Smart Workflow</span></div>
+
+        </div>
+
+      </div>
+
     </section>
+
   </header>
 
   <main>
+
     <section class="section" id="notes">
-      <div class="section-header">
-        <span>AI Notes</span>
-        <h2>AI 观察与产品思考</h2>
-        <p>持续记录 AI Agent、大模型应用、智能设备与自动化场景的趋势判断。</p>
+
+      <div class="section-title">
+
+        <div class="kicker">AI Notes</div>
+
+        <h2>AI 观察与深度内容</h2>
+
+        <p>这里会持续沉淀我对 AI Agent、大模型应用、智能设备入口、自动化系统和产品创新的研究与判断。</p>
+
       </div>
 
-      <div class="card-grid">
-        <article class="card featured-card">
-          <div>
-            <div class="card-tag">AI Agent</div>
-            <h3>为什么 AI Agent 会成为下一代个人与家庭入口？</h3>
-            <p>从被动问答到主动执行，AI Agent 的价值不只是聊天，而是理解目标、调用工具、连接设备和完成任务。</p>
+      <div class="grid">
+
+        <article class="card">
+
+          <img src="https://images.unsplash.com/photo-1677756119517-756a188d2d94?auto=format&fit=crop&w=1000&q=85" alt="AI neural network" />
+
+          <div class="card-body">
+
+            <span class="tag">AI Agent</span>
+
+            <h3>为什么 AI Agent 会成为下一代入口？</h3>
+
+            <p>从被动问答到主动执行，Agent 的价值在于理解目标、调用工具、连接系统并完成任务。</p>
+
+            <a href="#lab">查看方向 →</a>
+
           </div>
-          <a href="#experiments">查看实验方向 →</a>
+
         </article>
 
         <article class="card">
-          <div>
-            <div class="card-tag">LLM</div>
-            <h3>大模型如何改变产品经理的工作方式</h3>
-            <p>从资料检索、竞品分析、文档生成到需求评审，AI 正在成为产品经理的外部大脑。</p>
+
+          <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1000&q=85" alt="AI work desk" />
+
+          <div class="card-body">
+
+            <span class="tag">LLM Workflow</span>
+
+            <h3>大模型如何改变产品经理工作方式</h3>
+
+            <p>资料检索、竞品分析、方案生成、需求评审和汇报表达，都可以被 AI 重构。</p>
+
+            <a href="#">Coming soon →</a>
+
           </div>
-          <span class="coming">Coming soon</span>
+
         </article>
 
         <article class="card">
-          <div>
-            <div class="card-tag">Automation</div>
+
+          <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1000&q=85" alt="automation server" />
+
+          <div class="card-body">
+
+            <span class="tag">Automation</span>
+
             <h3>自动化不是脚本，而是新的工作流系统</h3>
-            <p>真正有价值的自动化，应该围绕人的目标、上下文和长期记忆进行组织。</p>
+
+            <p>真正有价值的自动化，应围绕人的目标、上下文、权限、记忆和工具链进行组织。</p>
+
+            <a href="#">Coming soon →</a>
+
           </div>
-          <span class="coming">Coming soon</span>
+
         </article>
+
       </div>
+
     </section>
 
-    <section class="section alt" id="experiments">
-      <div class="section-header">
-        <span>Experiments</span>
-        <h2>个人 AI 实验方向</h2>
-        <p>这个网站后续会沉淀我的 Demo、流程图、HTML 报告和实验记录。</p>
+    <section class="dark-band" id="lab">
+
+      <div class="section">
+
+        <div class="section-title">
+
+          <div class="kicker">AI Lab</div>
+
+          <h2>个人 AI 实验室方向</h2>
+
+          <p>我会把 Demo、流程图、HTML 报告、技术笔记和产品研究都沉淀到这里，形成一个长期可迭代的知识站。</p>
+
+        </div>
+
+        <div class="lab-grid">
+
+          <div class="lab-item">
+
+            <strong>01 · AI Agent System</strong>
+
+            <p>研究 Agent 如何理解用户目标、拆解任务、调用工具、管理记忆，并从“回答问题”升级到“完成任务”。</p>
+
+          </div>
+
+          <div class="lab-item">
+
+            <strong>02 · Smart Home Intelligence</strong>
+
+            <p>探索家庭设备、空间、人、传感器、自动化和知识图谱如何与 AI Agent 结合。</p>
+
+          </div>
+
+          <div class="lab-item">
+
+            <strong>03 · Product Research</strong>
+
+            <p>沉淀 AI 产品、硬件入口、语音交互、自动化平台和开发者生态的研究报告。</p>
+
+          </div>
+
+          <div class="lab-item">
+
+            <strong>04 · Personal Workflow</strong>
+
+            <p>用 AI 改造个人工作流：信息获取、分析判断、内容生成、项目管理和持续复盘。</p>
+
+          </div>
+
+        </div>
+
       </div>
 
-      <div class="timeline">
-        <div class="timeline-item">
-          <strong>01 · AI Agent</strong>
-          <p>围绕个人效率、家庭场景、设备控制和知识图谱的 Agent 实验。</p>
-        </div>
-        <div class="timeline-item">
-          <strong>02 · Smart Automation</strong>
-          <p>探索 Home Assistant、OpenClaw、MCP、CLI 与设备控制的结合方式。</p>
-        </div>
-        <div class="timeline-item">
-          <strong>03 · Product Research</strong>
-          <p>沉淀 AI 产品、硬件入口、语音交互、自动化平台的研究报告。</p>
-        </div>
-      </div>
     </section>
 
     <section class="section" id="about">
-      <div class="about-box">
-        <div>
-          <span class="section-kicker">About</span>
+
+      <div class="about">
+
+        <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1200&q=85" alt="modern technology workspace" />
+
+        <div class="about-box">
+
+          <div class="kicker">About</div>
+
           <h2>关于 Nicholas AI Studio</h2>
+
+          <p>这是一个个人 AI 内容站，用来分享我对 AI Agent、大模型应用、智能自动化和产品创新的长期观察。后续每一份 HTML 报告、项目方案、技术笔记，都可以放到这里，通过链接直接分享给别人。</p>
+
         </div>
-        <p>
-          这是一个个人 AI 内容站，用于分享我对 AI Agent、大模型应用、智能自动化和产品创新的长期观察。
-          后续可以把每一份 HTML 报告、项目方案、技术笔记都放到这里，通过链接直接分享给别人。
-        </p>
+
       </div>
+
     </section>
+
   </main>
 
-  <footer class="footer">
-    <p>© 2026 Nicholas AI Studio. Built with GitHub Pages.</p>
-  </footer>
+  <footer class="footer">© 2026 Nicholas AI Studio. Built with GitHub Pages.</footer>
+
 </body>
+
 </html>
